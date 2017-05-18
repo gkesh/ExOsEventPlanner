@@ -1,0 +1,53 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package per.pck.trails;
+
+import com.pck.eventplanner.entity.Events;
+import com.pck.eventplanner.jdbe.EventDBMethods;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+
+/**
+ *
+ * @author G-Kesh
+ */
+public class Tests {
+    public static void main(String[] args){
+        Scanner inp = new Scanner(System.in);
+        EventDBMethods eD = new EventDBMethods();
+        Events evt = new Events();
+        System.out.println("Enter event name::");
+        evt.setName(inp.next());
+        System.out.println("Enter event location::");
+        evt.setLocation(inp.next());
+        System.out.println("Enter description::");
+        evt.setDescription(inp.next());
+        boolean tru = true;
+        int counter = 0;
+        List<String> usrs = new ArrayList<>();
+        while(tru){
+        System.out.println("Enter attendee names::");
+        usrs.add(inp.next());
+        System.out.println("Do you want to enter more");
+        if(inp.next().equalsIgnoreCase("no")){
+            tru = false;
+        }
+        counter++;
+        evt.setAttendees(usrs);
+        }
+        System.out.println("Enter minimum acceptable attendee count::");
+        evt.setMinAttendees(inp.nextInt());
+        
+        evt.setMinThres(evt.getMinAttendees()/counter*100);
+        boolean tr = eD.addEvent(evt);
+        if(tr){
+            System.out.println("Event Added!");
+        }
+    }
+}

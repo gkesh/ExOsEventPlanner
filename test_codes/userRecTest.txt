@@ -1,0 +1,54 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package per.pck.trails;
+
+import com.pck.eventplanner.entity.Users;
+import com.pck.eventplanner.jdbe.UserDBMethods;
+import java.sql.Timestamp;
+import java.util.Scanner;
+
+
+
+
+/**
+ *
+ * @author G-Kesh
+ */
+public class Tests {
+    public static void main(String[] args){
+        Scanner inp = new Scanner(System.in);
+        Users usr = new Users();
+        String arr1[][]={{"Sunday","11-12","1-2","4-5","7-8"},{"Monday","11-12","1-2","7-8"},{"Tuesday","10-11","1-2","4-5","7-8"}};
+        String arra[][] = {{"Friday","4-5","7-8"},{"Thursday","11-12","1-2"},{"Wednesday","11-12","7-8"}};
+        String arr2[][] = {{"Saturday","11-12","1-2","4-5","7-8"},{"Monday","10-11","3-4"},{"Tuesday","6-7","14-15","18-19","15-16"}};
+        System.out.println("Enter First Name::");
+        usr.setFirst_name(inp.next());
+        System.out.println("Enter Last Name::");
+        usr.setLast_name(inp.next());
+        System.out.println("Enter E-mail::");
+        usr.setEmail_add(inp.next());
+        System.out.println("Enter Phone Number::");
+        usr.setPhone_no(inp.next());
+        System.out.println("Enter Username::");
+        usr.setUsername(inp.next());
+        System.out.println("Enter password::");
+        usr.setPassword(inp.next());
+        usr.setAttendee(false);
+        usr.setEvent_planner(false);
+        usr.setAdded_date(new Timestamp(System.currentTimeMillis()));
+        usr.setFree_slot(arr1);
+        usr.setBusy_slot(arra);
+        usr.setUndecided_slot(arr2);
+        
+        UserDBMethods mth = new UserDBMethods();
+        boolean res = mth.addUser(usr);
+        if(res){
+            System.out.println("Database created Successfully!!");
+        }else{
+            System.out.println("Database not created!");
+        }
+    }
+}

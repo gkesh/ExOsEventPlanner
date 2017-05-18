@@ -1,0 +1,37 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package per.pck.trails;
+
+import com.pck.eventplanner.entity.Users;
+import com.pck.eventplanner.jdbe.UserDBMethods;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+
+
+/**
+ *
+ * @author G-Kesh
+ */
+public class Tests {
+    public static void main(String[] args){
+        UserDBMethods uD = new UserDBMethods();
+        List<Users> usrl = new ArrayList<>();
+        usrl = uD.showAll();
+        Users usr = new Users();
+        for(Users u : usrl){
+            if(u.getId()==4){
+                usr = u;
+            }
+        }
+        boolean t = uD.removeUser(usr);
+        if(t){
+            System.out.println("Removed Successfully");
+        }
+    }
+}

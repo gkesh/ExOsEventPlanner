@@ -1,0 +1,53 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package per.pck.trails;
+
+import com.pck.eventplanner.entity.Events;
+import com.pck.eventplanner.entity.Users;
+import com.pck.eventplanner.jdbe.EventDBMethods;
+import com.pck.eventplanner.jdbe.UserDBMethods;
+import com.pck.eventplanner.methods.TimeSlotProcessor;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+
+/**
+ *
+ * @author G-Kesh
+ */
+public class Tests {
+    public static void main(String[] args){
+        EventDBMethods eD = new EventDBMethods();
+        UserDBMethods uD = new UserDBMethods();
+        Events evt = new Events();
+        List<Events> evtl = new ArrayList<>();
+        evtl = eD.showAll();
+        for(Events e : evtl){
+            if(e.getName().equalsIgnoreCase("dashin")){
+                evt = e;
+            }
+        }
+        List<Users> usrl, usr2 = new ArrayList<>();
+      usrl = uD.showAll();
+      for(Users usr: usrl){
+          for(String str: evt.getAttendees()){
+              if(usr.getFirst_name().equalsIgnoreCase(str)){
+                  usr2.add(usr);
+              }
+          }
+      }
+      TimeSlotProcessor tm = new TimeSlotProcessor();
+      String[] ans = new String[6];
+      ans = tm.timeSlotProcessor(usr2);
+      evt.setSelDate(ans);
+      boolean tru = eD.selTimeSlot(ans, evt.getName());
+      if(tru){
+          System.out.println("Date Selected");
+      }
+    }
+}

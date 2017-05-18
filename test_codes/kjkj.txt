@@ -1,0 +1,10 @@
+ for(Users usr: usrLst){
+            if(usr.getUsername().equalsIgnoreCase(txtUserName.getText())){
+                user = usr;
+            }
+        }
+        System.out.println(user.toString());
+        StringBuilder sb = new StringBuilder();
+        for(char ch : txtPassword.getPassword()){
+            sb.append(ch);
+        }   
